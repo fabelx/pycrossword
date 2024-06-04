@@ -1,0 +1,67 @@
+[project]
+name = "pycrossword-generator"
+dynamic = ["version"]
+description = "A Python library and CLI tool for generating customizable crossword puzzles."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+keywords = ["crossword", "generator", "puzzle"]
+authors = [
+    { name = "Vladyslav Novotnyi", email = "psejjkuczo@proxiedmail.com" }
+]
+maintainers = [
+    { name = "Vladyslav Novotnyi", email = "psejjkuczo@proxiedmail.com" }
+]
+
+# Classifiers help users find your project by categorizing it.
+#
+# For a list of valid classifiers, see https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only"
+]
+
+dependencies = [
+  "openai>=1.25.0"
+]
+
+#   $ pip install pycrossword-generator[dev]
+[project.optional-dependencies]
+# development dependency group
+dev = [
+    "build",
+    "pre-commit"
+]
+# test dependency group
+test = [
+    "coverage",
+    "deepdiff>=1.7.0",
+    "pytest",
+    "pytest-cov",
+]
+# lint dependency group
+lint = [
+    "black>=23.10.0",
+    "isort",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/fabelx/pycrossword-generator"
+"Bug Reports" = "https://github.com/fabelx/pycrossword-generator/issues"
+"Source" = "https://github.com/fabelx/pycrossword-generator"
+
+[project.scripts]
+pycrossword = "pycrossword.__main__:main"
+
+[build-system]
+requires = ["setuptools>=62.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "pycrossword.__version__"}

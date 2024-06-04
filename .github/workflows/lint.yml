@@ -1,0 +1,33 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+    # default values: opened, synchronize, or reopened
+    types:
+      - opened
+      - synchronize
+
+permissions:
+  contents: read
+
+jobs:
+  run-linters:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Python '3.12'
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+    - name: Check project version
+      run: make info
+    # This is redundant, just to better understand what the problem with the linter is.
+    - name: Install lint dependencies
+      run: make install-lint
+    - name: Run black
+      run: make black
+    - name: Run isort
+      run: make isort

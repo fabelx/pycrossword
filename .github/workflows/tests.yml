@@ -1,0 +1,66 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - development
+      - main
+  pull_request:
+    branches:
+      - main
+    # default values: opened, synchronize, or reopened
+    types:
+      - opened
+      - synchronize
+  schedule:
+    # cron every week on monday
+    - cron: "0 0 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  run-tests:
+    name: "Python ${{ matrix.python-version }} on ${{ matrix.platform }}"
+    strategy:
+      matrix:
+        python-version: [ '3.12' ]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python }}
+    - name: Check project version
+      run: make info
+    - name: Run tests
+      run: make test
+
+  build:
+    name: "Build & verify package"
+    needs: run-tests
+    strategy:
+      matrix:
+        python: [ '3.12' ]
+        platform: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Check project version
+        run: make info
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+      - name: Build package
+        run: make build
+      - name: Twine check
+        run: make twine-check
