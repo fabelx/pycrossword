@@ -1,6 +1,6 @@
 VERSION = $(shell $(if $(filter $(OS),Windows_NT),type,cat) VERSION)
 NAME = pycrossword
-PIP = pip3
+PIP = pip
 PYTHON = python
 TWINE = twine
 COVERAGE = coverage
