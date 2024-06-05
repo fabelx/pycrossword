@@ -6,11 +6,11 @@ from pathlib import Path
 
 from openai import OpenAIError
 
-from .__version__ import __version__
+from . import __version__
+from ._logger import setup_logging
 from ._utils import print_clues, print_crossword, render_crossword, save
-from .clue import ClueDifficulty, AIClient, ClueGenerator
+from .clue import AIClient, ClueDifficulty, ClueGenerator
 from .crossword import generate_crossword
-from .logger import setup_logging
 from .word import prepare_words
 
 logger = setup_logging()
