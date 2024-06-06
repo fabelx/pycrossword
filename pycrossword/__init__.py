@@ -1,4 +1,4 @@
-from .clue import BaseClient, OpenAIClient, ClueDifficulty, ClueGenerator
+from .clue import BaseClient, ClueDifficulty, ClueGenerator, OpenAIClient
 from .crossword import generate_crossword
 from .word import prepare_words, remove_duplicates
 

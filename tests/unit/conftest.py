@@ -1,9 +1,9 @@
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
-from pycrossword import OpenAIClient, ClueGenerator
+from pycrossword import ClueGenerator, OpenAIClient
 
 TEST_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,30 +20,30 @@ def get_file_path(filename: str) -> Path:
     return TEST_DIR / "words" / filename
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def unique_words(filename: str) -> list[str]:
     filepath = get_file_path(filename=filename)
     with open(filepath, "r") as f:
         return f.read().splitlines()
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def words_with_duplicates(unique_words: list[str]) -> list[str]:
     return unique_words * 2
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def words_with_non_alpha_characters() -> list[str]:
     # words with non-alphabetic characters
     return ["hell0"]
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def client() -> OpenAIClient:
     return OpenAIClient(api_token="")
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def client_with_mock(client, content) -> OpenAIClient:
     with patch("openai.OpenAI") as mock_open_ai_client:
         mock_response = MagicMock()
@@ -53,6 +53,6 @@ def client_with_mock(client, content) -> OpenAIClient:
         yield client
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def clue_generator(client_with_mock) -> ClueGenerator:
     return ClueGenerator(client_with_mock, cacheable=True)

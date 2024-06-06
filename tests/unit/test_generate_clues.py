@@ -9,19 +9,21 @@ def test_render_query(client):
     assert isinstance(query, str)
 
 
-@pytest.mark.parametrize("content", ("The time it takes for Earth to complete one rotation.",))
+@pytest.mark.parametrize(
+    "content", ("The time it takes for Earth to complete one rotation.",)
+)
 def test_request(client_with_mock):
     query = client_with_mock.render_query("day", "time", ClueDifficulty.EASY)
     response = client_with_mock.request(query)
     assert response == "The time it takes for Earth to complete one rotation."
     client_with_mock.client.chat.completions.create.assert_called_once_with(
-        model=GPT3_TURBO,
-        messages=[{"role": "user", "content": query}],
-        temperature=0.9
+        model=GPT3_TURBO, messages=[{"role": "user", "content": query}], temperature=0.9
     )
 
 
-@pytest.mark.parametrize("content", ("A single distinct meaningful element of speech or writing.",))
+@pytest.mark.parametrize(
+    "content", ("A single distinct meaningful element of speech or writing.",)
+)
 def test_clue_generator(clue_generator):
     clue = clue_generator.create("word")
 

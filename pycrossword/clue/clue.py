@@ -12,6 +12,7 @@ GPT4_TURBO = "gpt-4-turbo-preview"
 
 class ClueDifficulty(enum.StrEnum):
     """Enumeration for different difficulty levels of crossword clues."""
+
     EASY = "easy"
     MEDIUM = "medium"
     HARD = "hard"
@@ -89,6 +90,7 @@ class OpenAIClient(BaseClient):
 
 class ClueGenerator:
     """A class to generate crossword clues using a client."""
+
     __slots__ = ("client", "theme", "difficulty", "__cacheable", "__clues")
 
     def __init__(
@@ -132,7 +134,9 @@ class ClueGenerator:
         Returns:
             str: The generated clue.
         """
-        clue = self.client.request(self.client.render_query(word, self.theme, self.difficulty))
+        clue = self.client.request(
+            self.client.render_query(word, self.theme, self.difficulty)
+        )
         if self.is_cacheable:
             self.__clues[word].append(clue)
 

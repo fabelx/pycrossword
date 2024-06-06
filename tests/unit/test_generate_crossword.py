@@ -10,4 +10,3 @@ def test_generate_crossword(unique_words):
 
     assert dimensions == (44, 48)
     assert round(efficiency, 2) == 100.00
-

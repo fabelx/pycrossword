@@ -16,4 +16,7 @@ def test_prepare_words_with_non_alpha_characters():
     with pytest.raises(ValueError) as e:
         prepare_words(words)
 
-    assert str(e.value) == f"The word '{words[0]}' is invalid. Only alphabetic characters are permitted."
+    assert (
+        str(e.value)
+        == f"The word '{words[0]}' is invalid. Only alphabetic characters are permitted."
+    )
