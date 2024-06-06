@@ -17,7 +17,7 @@ maintainers = [
 #
 # For a list of valid classifiers, see https://pypi.org/classifiers/
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: End Users/Desktop",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -35,13 +35,11 @@ dependencies = [
 [project.optional-dependencies]
 # development dependency group
 dev = [
-    "build",
-    "pre-commit"
+    "build"
 ]
 # test dependency group
 test = [
     "coverage",
-    "deepdiff>=1.7.0",
     "pytest",
     "pytest-cov",
 ]
