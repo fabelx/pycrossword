@@ -1,1 +1,1 @@
-from .clue import AIClient, ClueDifficulty, ClueGenerator
+from .clue import BaseClient, OpenAIClient, ClueDifficulty, ClueGenerator

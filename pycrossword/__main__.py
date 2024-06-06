@@ -9,7 +9,7 @@ from openai import OpenAIError
 from . import __version__
 from ._logger import setup_logging
 from ._utils import print_clues, print_crossword, render_crossword, save
-from .clue import AIClient, ClueDifficulty, ClueGenerator
+from .clue import OpenAIClient, ClueDifficulty, ClueGenerator
 from .crossword import generate_crossword
 from .word import prepare_words
 
@@ -164,11 +164,11 @@ async def run():
         total_words = len(words)
         logger.info(f"Starting crossword puzzle generation with {total_words} words.")
         dimensions, placed_words = generate_crossword(words, args.seed)
-        ai_client = AIClient(api_token)
+        ai_client = OpenAIClient(api_token)
         clue_generator = ClueGenerator(
             ai_client, theme=args.theme, difficulty=args.clue_difficulty
         )
-        clues = clue_generator.create_clues([item[0] for item in placed_words])
+        clues = clue_generator.create([item[0] for item in placed_words])
         logger.info("Finished crossword puzzle generation.")
 
         if args.output:

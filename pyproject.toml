@@ -28,7 +28,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "openai>=1.25.0"
+    "openai>=1.25.0"
 ]
 
 #   $ pip install pycrossword-generator[dev]
@@ -64,4 +64,14 @@ requires = ["setuptools>=62.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
-version = {attr = "pycrossword.__version__"}
+version = { attr = "pycrossword.__version__" }
+
+# omit all files that starts with an underscore
+[tool.coverage.run]
+omit = [
+    "*/_*"
+]
+
+[tool.coverage.report]
+skip_empty = true
+show_missing = true
