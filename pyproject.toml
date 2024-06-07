@@ -50,9 +50,9 @@ lint = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/fabelx/pycrossword-generator"
-"Bug Reports" = "https://github.com/fabelx/pycrossword-generator/issues"
-"Source" = "https://github.com/fabelx/pycrossword-generator"
+"Homepage" = "https://github.com/fabelx/pycrossword"
+"Bug Reports" = "https://github.com/fabelx/pycrossword/issues"
+"Source" = "https://github.com/fabelx/pycrossword"
 
 [project.scripts]
 pycrossword = "pycrossword.__main__:main"
