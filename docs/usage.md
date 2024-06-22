@@ -2,7 +2,7 @@
 ________________
 
 > [!IMPORTANT]
-> ###  For now, it's required to have the OpenAI API key set in your environment via _OPENAI_API_KEY_ or provided directly via `-t/--api-token` to the CLI tool, or as an argument during instantiation of the OpenAIClient.
+> ###  It's no longer required to have the OpenAI API key set in your environment via _OPENAI_API_KEY_ or provided directly via `-t/--api-token` to the CLI tool.
 ________________
 
 > [!WARNING]
@@ -29,6 +29,28 @@ def main():
     for word in placed_words:
         orientation = "horizontally" if word[3] else "vertically"
         print(f"{word[0]}: starting coordinate at {word[1]} x {word[2]}, placing: {orientation}.")
+
+
+if __name__ == '__main__':
+    main()
+
+```
+
+### Generate clues
+```python
+from pycrossword import OpenAIClient, ClueGenerator, ClueDifficulty
+
+
+def main():
+    api_token = "Your-API-Token"
+    words = ["amazon", "python", "night", "joy", "comprehensive"]
+    ai_client = OpenAIClient(api_token)
+    clue_generator = ClueGenerator(
+        ai_client, difficulty=ClueDifficulty.MEDIUM
+    )
+    clues = clue_generator.create(words)
+    for word, clue in clues.items():
+        print(f"{word}: {"".join(clue)}")
 
 
 if __name__ == '__main__':
@@ -63,6 +85,7 @@ clue arguments:
                         Difficulty level of the clues.
   -t API_TOKEN, --api-token API_TOKEN
                         Api token of OpenAI.
+  --no-clue             Disable clue generation.
 
 output arguments:
   -o OUTPUT, --output OUTPUT
@@ -109,19 +132,38 @@ pycrossword --words amazon python night joy comprehensive --seed 11 --api-token 
 ```
 
 ### Generate a crossword from a file with words
-Providing a seed for the reproducibility of crossword generation
 ```bash
 pycrossword --words-file words.txt --api-token OPENAI_API_KEY
 ```
 
 ### Generate a crossword from a file with words and save it to a file
-Providing a seed for the reproducibility of crossword generation
 ```bash
 pycrossword --words-file words.txt --output crossword.txt --api-token OPENAI_API_KEY
 ```
 
 ### Generate a crossword from a file with words and save it to a file in JSON format
-Providing a seed for the reproducibility of crossword generation
 ```bash
 pycrossword --words-file words.txt --output crossword.txt --json --api-token OPENAI_API_KEY
+```
+
+### Generate a crossword from words without clues
+Disable clue generation using the `--no-clue` flag
+```bash
+pycrossword --words amazon python night joy comprehensive --no-clue
+```
+```shell
+05:56:54 Preparing to generate crossword puzzles.
+05:56:54 Starting crossword puzzle generation with 5 words.
+05:56:54 Finished crossword puzzle generation.
+         -  -  -  -  -  -  P  -  -  -  -  -  -
+         -  -  -  -  -  -  Y  -  -  -  -  -  -
+         -  -  A  -  -  -  T  -  -  -  -  -  -
+         C  O  M  P  R  E  H  E  N  S  I  V  E
+         -  -  A  -  -  -  O  -  I  -  -  -  -
+         -  -  Z  -  -  -  N  -  G  -  -  -  -
+         -  J  O  Y  -  -  -  -  H  -  -  -  -
+         -  -  N  -  -  -  -  -  T  -  -  -  -
+05:56:54 Dimensions of the crossword puzzle: 8 x 13
+05:56:54 5 of 5 words were used, efficiency: 100.00%.
+05:56:54 Done. Enjoy your crossword!
 ```

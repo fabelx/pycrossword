@@ -1,4 +1,3 @@
-VERSION = $(shell $(if $(filter $(OS),Windows_NT),type,cat) VERSION)
 NAME = pycrossword
 PIP = pip
 PYTHON = python
@@ -10,7 +9,7 @@ all: info
 
 .PHONY: info
 info:
-	@echo "${NAME} version: ${VERSION}"
+	@echo "${NAME}"
 
 .PHONY: clean
 clean:
