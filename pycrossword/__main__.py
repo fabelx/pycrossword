@@ -80,8 +80,19 @@ def cli(parser: ArgumentParser) -> Namespace:
         choices=list(ClueDifficulty),
         help="Difficulty level of the clues.",
     )
-    clue.add_argument(
-        "-t", "--api-token", dest="api_token", type=str, help="Api token of OpenAI."
+    token = clue.add_mutually_exclusive_group(required=True)
+    token.add_argument(
+        "-t",
+        "--api-token",
+        dest="api_token",
+        type=str,
+        help="Api token of OpenAI.",
+    )
+    token.add_argument(
+        "--no-clue",
+        dest="disable_clue_generation",
+        action="store_true",
+        help="Disable clue generation.",
     )
 
     # Group for output-related arguments
@@ -142,7 +153,7 @@ async def run():
 
     try:
         api_token = args.api_token
-        if not args.api_token:
+        if not args.disable_clue_generation and not args.api_token:
             api_token = os.environ.get("OPENAI_API_KEY")
             if api_token is None:
                 raise OpenAIError(
@@ -164,11 +175,15 @@ async def run():
         total_words = len(words)
         logger.info(f"Starting crossword puzzle generation with {total_words} words.")
         dimensions, placed_words = generate_crossword(words, args.seed)
-        ai_client = OpenAIClient(api_token)
-        clue_generator = ClueGenerator(
-            ai_client, theme=args.theme, difficulty=args.clue_difficulty
-        )
-        clues = clue_generator.create([item[0] for item in placed_words])
+        if not args.disable_clue_generation:
+            ai_client = OpenAIClient(api_token)
+            clue_generator = ClueGenerator(
+                ai_client, theme=args.theme, difficulty=args.clue_difficulty
+            )
+            clues = clue_generator.create([item[0] for item in placed_words])
+        else:
+            clues = None
+
         logger.info("Finished crossword puzzle generation.")
 
         if args.output:
@@ -178,7 +193,8 @@ async def run():
         else:
             grid = render_crossword(placed_words, dimensions)
             print_crossword(grid)
-            print_clues(clues, placed_words)
+            if clues:
+                print_clues(clues, placed_words)
 
         logger.info(
             f"Dimensions of the crossword puzzle: {dimensions[0]} x {dimensions[1]}"

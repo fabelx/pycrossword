@@ -22,8 +22,6 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
-    - name: Check project version
-      run: make info
     # This is redundant, just to better understand what the problem with the linter is.
     - name: Install lint dependencies
       run: make install-lint

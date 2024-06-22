@@ -2,7 +2,7 @@ from .clue import BaseClient, ClueDifficulty, ClueGenerator, OpenAIClient
 from .crossword import generate_crossword
 from .word import prepare_words, remove_duplicates
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = (
     "__version__",
     "BaseClient",

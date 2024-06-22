@@ -29,7 +29,11 @@ def print_clues(clues: dict, placed_words: list):
 
 
 def save(
-    file_path: Path, as_json: bool, dimensions: list, placed_words: list, clues: dict
+    file_path: Path,
+    as_json: bool,
+    dimensions: list,
+    placed_words: list,
+    clues: dict = None,
 ):
     if as_json:
         with open(file_path, "w") as f:
@@ -44,7 +48,7 @@ def save(
                                 "col": item[2],
                             },
                             "direction": "horizontal" if item[3] else "vertical",
-                            "clue": clues[item[0]].pop(),
+                            "clue": clues[item[0]].pop() if clues else None,
                         }
                         for item in placed_words
                     ],
