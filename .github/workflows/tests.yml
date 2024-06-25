@@ -21,6 +21,7 @@ permissions:
 
 jobs:
   run-tests:
+    if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
     name: "Python ${{ matrix.python-version }} on ${{ matrix.platform }}"
     strategy:
       matrix:
@@ -42,6 +43,7 @@ jobs:
       run: make test
 
   build:
+    if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
     name: "Build & verify package"
     needs: run-tests
     strategy:
