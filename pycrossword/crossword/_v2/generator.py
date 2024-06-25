@@ -140,11 +140,15 @@ def __find_placements(word: str, offset: int, crossword: dict, x, y) -> list:
     return start_points
 
 
-def __generate_crossword(words: list) -> tuple:
+def __generate_crossword(
+    words: list, x: int | None = None, y: int | None = None
+) -> tuple:
     """Generate a crossword puzzle using the given list of words.
 
     Args:
         words: List of words to use for the crossword puzzle.
+        x: Optional width constraint for the crossword grid. Defaults to None.
+        y: Optional height constraint for the crossword grid. Defaults to None.
 
     Returns:
         tuple: Final crossword grid, dimensions list and placement list.
@@ -170,6 +174,15 @@ def __generate_crossword(words: list) -> tuple:
             new_crossword, new_dimensions = __place(
                 word_, crossword_.copy(), *placement, dimensions.copy()
             )
+
+            if (
+                x
+                and new_dimensions[3] - new_dimensions[2] >= x
+                or y
+                and new_dimensions[1] - new_dimensions[0] >= y
+            ):
+                continue
+
             new_score = generate_score(new_crossword, new_dimensions)
             if new_score > best_score:
                 best_score = new_score
@@ -189,11 +202,15 @@ def __generate_crossword(words: list) -> tuple:
     return crossword_, dimensions, placed_words
 
 
-def generate_crossword(words: list, seed: int | None = None) -> tuple:
+def generate_crossword(
+    words: list, x: int | None = None, y: int | None = None, seed: int | None = None
+) -> tuple:
     """Generate a crossword puzzle from the given list of words.
 
     Args:
         words: List of words to use for the crossword puzzle.
+        x: Optional width constraint for the crossword grid. Defaults to None.
+        y: Optional height constraint for the crossword grid. Defaults to None.
         seed: Random seed for reproducibility. Defaults to None.
 
     Returns:
@@ -201,9 +218,9 @@ def generate_crossword(words: list, seed: int | None = None) -> tuple:
     """
     if seed is not None:
         with random_state(seed):
-            _, dimensions, placed_words = __generate_crossword(words)
+            _, dimensions, placed_words = __generate_crossword(words, x, y)
     else:
-        _, dimensions, placed_words = __generate_crossword(words)
+        _, dimensions, placed_words = __generate_crossword(words, x, y)
 
     rows = dimensions[1] - dimensions[0] + 1
     cols = dimensions[3] - dimensions[2] + 1

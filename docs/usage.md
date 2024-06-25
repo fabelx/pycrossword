@@ -36,6 +36,32 @@ if __name__ == '__main__':
 
 ```
 
+### Create a crossword puzzle with custom dimensions
+```python
+from pycrossword import generate_crossword
+
+
+def main():
+    words = ["amazon", "python", "night", "joy", "comprehensive"]
+
+    # Generate the crossword puzzle using the provided words, a specific seed for reproducibility and dimensions
+    dimensions, placed_words = generate_crossword(words.copy(), x=10, y=10, seed=11)
+    print(f"Dimensions of the crossword puzzle: {dimensions[0]} x {dimensions[1]}")
+
+    efficiency = round((len(placed_words) / len(words)) * 100, 2)
+    print(f"{len(placed_words)} of {len(words)} words were used, efficiency: {efficiency}%.")
+
+    # Print the details of each placed word
+    for word in placed_words:
+        orientation = "horizontally" if word[3] else "vertically"
+        print(f"{word[0]}: starting coordinate at {word[1]} x {word[2]}, placing: {orientation}.")
+
+
+if __name__ == '__main__':
+    main()
+
+```
+
 ### Generate clues
 ```python
 from pycrossword import OpenAIClient, ClueGenerator, ClueDifficulty

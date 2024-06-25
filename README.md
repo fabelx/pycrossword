@@ -35,7 +35,7 @@ See [documentation](https://github.com/fabelx/pycrossword/blob/main/docs/README.
 ___
 
 ### To-do
-- [ ] Add support for user-specified dimensions of the crossword grid.
+- [x] Add support for user-specified dimensions of the crossword grid.
 ___
 
 ## License
