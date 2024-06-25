@@ -46,7 +46,7 @@ test = [
 # lint dependency group
 lint = [
     "black==24.4.2",
-    "isort==5.12.0",
+    "isort==5.13.2",
 ]
 
 [project.urls]
