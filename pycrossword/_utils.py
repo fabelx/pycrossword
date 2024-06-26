@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 def render_crossword(placed_words: list, dimensions: list):
-    grid = [["-" for _ in range(dimensions[1])] for _ in range(dimensions[0])]
+    grid = [["-" for _ in range(dimensions[0])] for _ in range(dimensions[1])]
     for items in placed_words:
         # if horizontal
         if items[3]:
@@ -39,7 +39,7 @@ def save(
         with open(file_path, "w") as f:
             json.dump(
                 {
-                    "dimensions": {"rows": dimensions[0], "cols": dimensions[1]},
+                    "dimensions": {"cols": dimensions[0], "rows": dimensions[1]},
                     "placed_words": [
                         {
                             "word": item[0],
