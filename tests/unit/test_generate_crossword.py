@@ -8,7 +8,7 @@ def test_generate_crossword(unique_words: list):
     dimensions, placed_words = generate_crossword(unique_words.copy(), seed=11)
     efficiency = (len(placed_words) / len(unique_words)) * 100
 
-    assert dimensions == (44, 48)
+    assert dimensions == (48, 44)
     assert round(efficiency, 2) == 100.00
 
 
@@ -28,5 +28,5 @@ def test_generate_crossword_with_dimensions(
     )
     x, y = dimensions
 
-    assert x <= height
-    assert y <= width
+    assert x <= width
+    assert y <= height

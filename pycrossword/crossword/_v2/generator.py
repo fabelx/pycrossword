@@ -228,4 +228,4 @@ def generate_crossword(
         placed_words[i][1] = placed_words[i][1] - dimensions[0]
         placed_words[i][2] = placed_words[i][2] - dimensions[2]
 
-    return (rows, cols), placed_words
+    return (cols, rows), placed_words

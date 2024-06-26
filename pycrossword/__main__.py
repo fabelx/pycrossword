@@ -174,7 +174,7 @@ async def run():
 
         total_words = len(words)
         logger.info(f"Starting crossword puzzle generation with {total_words} words.")
-        dimensions, placed_words = generate_crossword(words, args.seed)
+        dimensions, placed_words = generate_crossword(words, seed=args.seed)
         if not args.disable_clue_generation:
             ai_client = OpenAIClient(api_token)
             clue_generator = ClueGenerator(
