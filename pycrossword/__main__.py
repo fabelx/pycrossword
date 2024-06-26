@@ -50,6 +50,22 @@ def cli(parser: ArgumentParser) -> Namespace:
     # Group for crossword-related arguments
     crossword = parser.add_argument_group("crossword arguments")
     crossword.add_argument(
+        "-x",
+        "--width",
+        dest="cols",
+        type=int,
+        default=None,
+        help="The width of the crossword puzzle grid.",
+    )
+    crossword.add_argument(
+        "-y",
+        "--height",
+        dest="rows",
+        type=int,
+        default=None,
+        help="The height of the crossword puzzle grid.",
+    )
+    crossword.add_argument(
         "-se",
         "--seed",
         type=int,
@@ -174,7 +190,9 @@ async def run():
 
         total_words = len(words)
         logger.info(f"Starting crossword puzzle generation with {total_words} words.")
-        dimensions, placed_words = generate_crossword(words, seed=args.seed)
+        dimensions, placed_words = generate_crossword(
+            words, x=args.cols, y=args.rows, seed=args.seed
+        )
         if not args.disable_clue_generation:
             ai_client = OpenAIClient(api_token)
             clue_generator = ClueGenerator(

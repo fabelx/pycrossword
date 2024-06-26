@@ -89,7 +89,8 @@ if __name__ == '__main__':
 pycrossword -h
 ```
 ```shell
-usage: pycrossword (-ws WORDS [WORDS ...] | -wf WORDS_FILE) [-se SEED] [-th THEME] [-ar] [-cd {easy,medium,hard}] [-t API_TOKEN] [-o OUTPUT] [-j] [-f] [-h] [-v] [-s]
+usage: pycrossword (-ws WORDS [WORDS ...] | -wf WORDS_FILE) [-x COLS] [-y ROWS] [-se SEED] [-th THEME] [-ar] [-cd {easy,medium,hard}] (-t API_TOKEN | --no-clue) [-o OUTPUT] [-j]
+                   [-f] [-h] [-v] [-s]
 
 A Python cli tool for generating customizable crossword puzzles.
 
@@ -100,6 +101,10 @@ required arguments:
                         Path to the file containing the words for generating crossword puzzle.
 
 crossword arguments:
+  -x COLS, --width COLS
+                        The width of the crossword puzzle grid.
+  -y ROWS, --height ROWS
+                        The height of the crossword puzzle grid.
   -se SEED, --seed SEED
                         Seed for crossword generation to ensure reproducibility.
   -th THEME, --theme THEME
@@ -192,4 +197,52 @@ pycrossword --words amazon python night joy comprehensive --no-clue
 05:56:54 Dimensions of the crossword puzzle: 8 x 13
 05:56:54 5 of 5 words were used, efficiency: 100.00%.
 05:56:54 Done. Enjoy your crossword!
+```
+
+### Generate a crossword from a file containing words, without clues, and with custom width and height (columns, rows)
+Disable clue generation using the `--no-clue` flag and add `--width` / `--height`
+```bash
+pycrossword -wf .\tests\words\word-set-38-1.txt --no-clue --seed 11 --width 10 --height 10
+```
+```shell
+08:44:47 Preparing to generate crossword puzzles.
+08:44:47 Starting crossword puzzle generation with 38 words.
+08:44:47 Finished crossword puzzle generation.
+         -  S  U  S  P  E  N  D  -  -
+         -  N  -  -  -  -  -  -  -  -
+         T  E  R  R  I  F  I  C  -  -
+         -  A  -  -  -  -  -  H  -  -
+         -  K  -  -  U  -  T  E  S  T
+         -  Y  A  W  N  -  -  E  -  -
+         -  -  -  -  E  -  G  R  A  B
+         -  -  -  -  V  -  -  -  -  -
+         -  S  I  D  E  -  -  -  -  -
+         -  -  -  -  N  -  -  -  -  -
+08:44:47 Dimensions of the crossword puzzle: 10 x 10
+08:44:47 9 of 38 words were used, efficiency: 23.68%.
+08:44:47 Done. Enjoy your crossword!
+```
+
+### Generate a crossword from a file containing words, without clues, and with custom height only (rows)
+Disable clue generation using the `--no-clue` flag and add only `--height`
+```bash
+pycrossword -wf .\tests\words\word-set-38-1.txt --no-clue --seed 11 --height 10
+```
+```shell
+08:45:24 Preparing to generate crossword puzzles.
+08:45:24 Starting crossword puzzle generation with 38 words.
+08:45:24 Finished crossword puzzle generation.
+         -  S  U  S  P  E  N  D  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  L  U  M  P  Y
+         -  N  -  -  -  -  -  -  -  -  T  E  S  T  -  -  -  -  -  -  -  -  -  -  -  -  F  L  A  G  R  A  N  T  -  -  -  -  O  -  -
+         T  E  R  R  I  F  I  C  -  -  A  -  -  -  -  -  -  B  U  S  I  N  E  S  S  -  -  -  -  -  -  D  -  -  -  -  G  -  V  -  -
+         -  A  -  -  -  -  -  H  -  -  L  A  C  K  I  N  G  -  -  -  -  -  -  P  -  -  -  -  B  L  E  A  C  H  -  P  O  K  E  -  -
+         -  K  -  -  U  -  L  E  V  E  L  -  -  -  -  -  R  -  -  -  -  B  -  O  -  -  H  -  -  -  -  P  -  -  -  -  V  -  -  -  -
+         -  Y  A  W  N  -  -  E  -  -  -  -  -  -  -  -  E  -  -  -  -  A  -  O  -  -  U  -  D  U  S  T  Y  -  -  -  E  -  -  -  -
+         -  -  -  -  E  -  B  R  A  W  N  Y  -  H  A  R  A  S  S  -  A  B  U  N  D  A  N  T  -  -  -  A  -  -  -  -  R  -  -  -  -
+         -  -  -  -  V  -  -  -  -  -  -  A  -  -  -  -  S  -  -  -  -  I  -  -  -  -  G  -  -  -  -  B  O  I  L  I  N  G  -  -  -
+         -  S  I  D  E  -  -  -  -  -  G  R  A  B  -  B  E  W  I  L  D  E  R  E  D  -  R  A  C  I  A  L  -  -  -  -  O  -  -  -  -
+         -  -  -  -  N  -  -  -  -  -  -  N  -  -  -  -  -  -  -  -  -  S  -  -  -  -  Y  -  -  -  -  E  -  -  F  A  R  M  -  -  -
+08:45:24 Dimensions of the crossword puzzle: 41 x 10
+08:45:24 33 of 38 words were used, efficiency: 86.84%.
+08:45:24 Done. Enjoy your crossword!
 ```
