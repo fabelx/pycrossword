@@ -45,7 +45,7 @@ test = [
 ]
 # lint dependency group
 lint = [
-    "black==24.8.0",
+    "black==24.10.0",
     "isort==5.13.2",
 ]
 
